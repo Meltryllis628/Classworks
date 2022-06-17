@@ -1,7 +1,6 @@
 import sys
 import threading
 from copy import deepcopy
-from tkinter import W
 import traceback
 
 # Creating a reentrant lock for threads
@@ -191,7 +190,6 @@ class Banker:
     def check_safe(self, customer_index, request, work, need, allocation):
         """
         Checks if the request will leave the bank in a safe state.
-
         Parameters
         ----------
         work, need, allocation : list[int], list[list[int]], list[list[int]]
@@ -200,7 +198,6 @@ class Banker:
             the customer's index (0-indexed)
         request : list[int]
             an array of the requested count for each resource
-
         Returns
         -------
         True : if the request resources will leave the bank in a safe state
@@ -225,18 +222,16 @@ class Banker:
         while (not empty):
             found = False
             for i in range(self.N):
-                if (finish[i]) :
-                    continue
-                satisfied = True
-                for j in range(self.M):
-                    if (need[i][j]> work):
-                        satisfied = False
-                if (not satisfied):
-                    continue
-                found = True
-                for j in range(self.M):
-                    work[j] += allocation[i][j]
-                finish[i] = True
+                if (not finish[i]) :
+                    satisfied = True
+                    for j in range(self.M):
+                        if (need[i][j] > work[j]):
+                            satisfied = False
+                    if (satisfied):
+                        found = True
+                        for j in range(self.M):
+                            work[j] += allocation[i][j]
+                        finish[i] = True
             if (not found):
                 break
             empty = True
